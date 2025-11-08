@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".fragments.PagosFragment">
+
+    <!-- Header: Título y Resumen -->
+    <TextView
+        android:id="@+id/tvPaymentHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Compra"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPaymentTotalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total a Pagar:"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvPaymentHeader"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPaymentTotalAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/azul"
+        app:layout_constraintTop_toTopOf="@+id/tvPaymentTotalLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPaymentTotalLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="$ 125.000 COP" />
+
+    <!-- Separador -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvPaymentTotalAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Título de Tarjeta -->
+    <TextView
+        android:id="@+id/tvCardDetailsHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Detalles de la Tarjeta"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Campo: Número de Tarjeta -->
+    <EditText
+        android:id="@+id/etCardNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Número de Tarjeta (16 dígitos)"
+        android:inputType="number"
+        android:maxLength="16"
+        android:minHeight="48dp"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardDetailsHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Campo: Nombre del Titular -->
+    <EditText
+        android:id="@+id/etCardHolderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del Titular"
+        android:inputType="textCapWords"
+        android:minHeight="48dp"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/etCardNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Layout para Fecha y CVV -->
+    <LinearLayout
+        android:id="@+id/layoutExpiryCvv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/etCardHolderName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Campo: Fecha de Expiración -->
+        <EditText
+            android:id="@+id/etExpiryDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="MM/YY"
+            android:inputType="date"
+            android:maxLength="5"
+            android:minHeight="48dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginEnd="4dp" />
+
+        <!-- Campo: CVV -->
+        <EditText
+            android:id="@+id/etCvv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="CVV (3 dígitos)"
+            android:inputType="numberPassword"
+            android:maxLength="3"
+            android:minHeight="48dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <!-- Botón de Pago -->
+    <Button
+        android:id="@+id/btnConfirmPayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Pagar Ahora"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:backgroundTint="@color/azul"
+        android:textColor="@color/white"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/layoutExpiryCvv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Indicador de Carga -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

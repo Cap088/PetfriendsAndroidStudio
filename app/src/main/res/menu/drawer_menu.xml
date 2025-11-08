@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Inicio" />
+
+        <item
+            android:id="@+id/nav_productos"
+            android:icon="@drawable/ic_menu_products"
+            android:title="Productos" />
+
+        <item
+            android:id="@+id/nav_carrito"
+            android:icon="@drawable/ic_menu_cart"
+            android:title="Carrito de Compras" />
+
+        <item
+            android:id="@+id/nav_compras"
+            android:icon="@drawable/ic_menu_sales"
+            android:title="Mis Compras" />
+
+        <item
+            android:id="@+id/nav_facturacion"
+            android:icon="@drawable/ic_menu_billing"
+            android:title="Facturación" />
+
+        <item
+            android:id="@+id/nav_contactanos"
+            android:icon="@drawable/ic_menu_contactos"
+            android:title="Contactanos" />
+    </group>
+
+    <!-- SECCIÓN ADMIN - Solo visible para administradores -->
+    <group
+        android:id="@+id/group_admin"
+        android:checkableBehavior="single"
+        android:visible="false">
+
+        <item android:title="Administración">
+            <menu>
+                <item
+                    android:id="@+id/nav_admin_dashboard"
+                    android:icon="@drawable/ic_menu_admin"
+                    android:title="Panel de Control" />
+
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Cuenta">
+        <menu>
+            <item
+                android:id="@+id/nav_logout_drawer"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+
+</menu>

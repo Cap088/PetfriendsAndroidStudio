@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Nombre del producto -->
+        <TextView
+            android:id="@+id/tvProductoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Producto"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/verde"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Fila 1: Cantidad y Precio Unitario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvProductoCantidad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cant: 1"
+                android:textSize="14sp"
+                android:textColor="@color/azul" />
+
+            <TextView
+                android:id="@+id/tvProductoPrecioUnitario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Precio: $0.00"
+                android:textSize="14sp"
+                android:textColor="@color/azul"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <!-- Fila 2: Subtotal -->
+        <TextView
+            android:id="@+id/tvProductoSubtotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subtotal: $0.00"
+            android:textSize="14sp"
+            android:textColor="@color/azul"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Descuento (solo visible si hay descuento) -->
+        <TextView
+            android:id="@+id/tvProductoDescuento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descuento: -$0.00"
+            android:textSize="14sp"
+            android:textColor="@color/azul"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" />
+
+        <!-- Fila 3: IVA -->
+        <TextView
+            android:id="@+id/tvProductoIva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IVA: $0.00"
+            android:textSize="14sp"
+            android:textColor="@color/azul"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Línea separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Total del producto -->
+        <TextView
+            android:id="@+id/tvProductoTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total: $0.00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/azul"
+            android:gravity="end" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
