@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.camilop.petfriendsapp_kotlin.databinding.FragmentAdminDashboardBinding
 import com.camilop.petfriendsapp_kotlin.viewmodels.AdminDashboardViewModel
+import com.camilop.petfriendsapp_kotlin.R
 
 class AdminDashboardFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class AdminDashboardFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        // ... (tu código existente de observadores) ...
+
         viewModel.totalUsuarios.observe(viewLifecycleOwner) { total ->
             binding.tvTotalUsuarios.text = total.toString()
         }
@@ -54,14 +55,13 @@ class AdminDashboardFragment : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
-                // Mostrar error si es necesario
-                // Toasty.error(requireContext(), errorMessage, Toasty.LENGTH_SHORT).show()
+
             }
         }
     }
 
     private fun setupClickListeners() {
-        // 👇 NUEVOS CLICK LISTENERS PARA LAS TARJETAS
+        // NUEVOS CLICK LISTENERS PARA LAS TARJETAS
 
         // Gestión de Usuarios
         binding.cardGestionUsuarios.setOnClickListener {
@@ -88,30 +88,39 @@ class AdminDashboardFragment : Fragment() {
         }
     }
 
-    // 👇 MÉTODOS DE NAVEGACIÓN (por implementar)
+    // MÉTODOS DE NAVEGACIÓN
     private fun navigateToUserManagement() {
-        // Por ahora mostraremos un mensaje, luego implementaremos la navegación real
-        showMessage("Navegando a Gestión de Usuarios")
-        // findNavController().navigate(R.id.action_adminDashboard_to_userManagementFragment)
+
+        val userManagementFragment = UserManagementFragment()
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, userManagementFragment)
+            .addToBackStack("user_management")
+            .commit()
     }
 
     private fun navigateToClientManagement() {
-        showMessage("Navegando a Gestión de Clientes")
-        // findNavController().navigate(R.id.action_adminDashboard_to_clientManagementFragment)
+
+        val clientManagementFragment = ClientManagementFragment()
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, clientManagementFragment)
+            .addToBackStack("client_management")
+            .commit()
     }
 
     private fun navigateToSalesManagement() {
-        showMessage("Navegando a Gestión de Ventas")
-        // findNavController().navigate(R.id.action_adminDashboard_to_salesManagementFragment)
+
+        val ventasAdminFragment = VentasAdminFragment()
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, ventasAdminFragment)
+            .addToBackStack("ventas_admin")
+            .commit()
     }
 
     private fun navigateToReports() {
-        showMessage("Navegando a Reportes")
-        // findNavController().navigate(R.id.action_adminDashboard_to_reportsFragment)
-    }
 
-    private fun showMessage(message: String) {
-        // Usar Toast o Snackbar para mostrar mensajes temporales
-        android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_SHORT).show()
+        // Para reportes, crearemos ReportsFragment después
     }
 }

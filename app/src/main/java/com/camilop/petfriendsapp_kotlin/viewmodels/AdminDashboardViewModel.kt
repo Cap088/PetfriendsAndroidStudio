@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.camilop.petfriendsapp_kotlin.network.ApiService
 import com.camilop.petfriendsapp_kotlin.utils.APIConfig
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -58,10 +61,10 @@ class AdminDashboardViewModel : ViewModel() {
     }
 
     private fun loadUsuarios() {
-        apiService.getUsuarios().enqueue(object : retrofit2.Callback<com.camilop.petfriendsapp_kotlin.models.UsuarioListResponse> {
+        apiService.getAllUsuarios().enqueue(object : Callback<com.camilop.petfriendsapp_kotlin.models.UsuarioAdminListResponse> {
             override fun onResponse(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.UsuarioListResponse>,
-                response: retrofit2.Response<com.camilop.petfriendsapp_kotlin.models.UsuarioListResponse>
+                call: Call<com.camilop.petfriendsapp_kotlin.models.UsuarioAdminListResponse>,
+                response: Response<com.camilop.petfriendsapp_kotlin.models.UsuarioAdminListResponse>
             ) {
                 if (response.isSuccessful) {
                     val usuarios = response.body()?.resultado?.size ?: 0
@@ -73,7 +76,7 @@ class AdminDashboardViewModel : ViewModel() {
             }
 
             override fun onFailure(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.UsuarioListResponse>,
+                call: Call<com.camilop.petfriendsapp_kotlin.models.UsuarioAdminListResponse>,
                 t: Throwable
             ) {
                 _totalUsuarios.value = 0
@@ -83,10 +86,10 @@ class AdminDashboardViewModel : ViewModel() {
     }
 
     private fun loadClientes() {
-        apiService.getClientes().enqueue(object : retrofit2.Callback<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse> {
+        apiService.getClientes().enqueue(object : Callback<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse> {
             override fun onResponse(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>,
-                response: retrofit2.Response<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>
+                call: Call<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>,
+                response: Response<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>
             ) {
                 if (response.isSuccessful) {
                     val clientes = response.body()?.resultado?.size ?: 0
@@ -98,7 +101,7 @@ class AdminDashboardViewModel : ViewModel() {
             }
 
             override fun onFailure(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>,
+                call: Call<com.camilop.petfriendsapp_kotlin.models.ClienteListResponse>,
                 t: Throwable
             ) {
                 _totalClientes.value = 0
@@ -108,10 +111,10 @@ class AdminDashboardViewModel : ViewModel() {
     }
 
     private fun loadVentas() {
-        apiService.getAllVentas().enqueue(object : retrofit2.Callback<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse> {
+        apiService.getAllVentas().enqueue(object : Callback<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse> {
             override fun onResponse(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>,
-                response: retrofit2.Response<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>
+                call: Call<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>,
+                response: Response<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>
             ) {
                 if (response.isSuccessful) {
                     val ventas = response.body()?.resultado?.size ?: 0
@@ -127,7 +130,7 @@ class AdminDashboardViewModel : ViewModel() {
             }
 
             override fun onFailure(
-                call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>,
+                call: Call<com.camilop.petfriendsapp_kotlin.models.VentasAdminResponse>,
                 t: Throwable
             ) {
                 _totalVentas.value = 0

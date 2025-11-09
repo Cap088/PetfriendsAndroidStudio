@@ -1,18 +1,15 @@
 package com.camilop.petfriendsapp_kotlin.models
 
-
 // MODELOS DE AUTENTICACIÓN Y USUARIO
 
-
-// * Modelo para la petición de LOGIN
+// Modelo para la petición de LOGIN
 
 data class LoginRequest(
     val usuario: String,
     val contrasena: String
 )
 
-
-// * Modelo para la petición de REGISTRO
+// Modelo para la petición de REGISTRO
 
 data class RegisterRequest(
     val nombre: String,
@@ -22,7 +19,7 @@ data class RegisterRequest(
     val telefono: String
 )
 
-// * Modelo para los datos del usuario devuelto en login/registro
+// Modelo para los datos del usuario devuelto en login/registro
 
 data class User(
     val nombre: String,
@@ -32,7 +29,7 @@ data class User(
     val rol: String? = null,
 )
 
-// * Respuesta general de la API para operaciones de autenticación
+// Respuesta general de la API para operaciones de autenticación
 
 data class APIResponse(
     val codigo: String,
@@ -42,7 +39,7 @@ data class APIResponse(
 
 // MODELOS DE PRODUCTOS
 
-// * Modelo de producto individual
+// Modelo de producto individual
 
 data class Product(
     val idProducto: Int,
@@ -55,7 +52,7 @@ data class Product(
     val imagenes: String? = null
 )
 
-// * Respuesta de la lista de productos
+// Respuesta de la lista de productos
 
 data class ProductListResponse(
     val codigo: String,
@@ -65,7 +62,7 @@ data class ProductListResponse(
 
 // MODELOS DE VENTAS
 
-// * Detalle individual de un producto en una venta
+// Detalle individual de un producto en una venta
 
 data class DetalleVentaRequest(
     val idProducto: Int,
@@ -77,7 +74,7 @@ data class DetalleVentaRequest(
     val totalPagar: Double
 )
 
-// * Solicitud completa para registrar una nueva venta
+// Solicitud completa para registrar una nueva venta
 
 data class VentaRequest(
     val idCliente: Int,
@@ -87,13 +84,13 @@ data class VentaRequest(
     val productos: List<DetalleVentaRequest>
 )
 
-// * Resultado de una venta registrada
+// Resultado de una venta registrada
 
 data class VentaResultado(
     val idVenta: Int
 )
 
-// * Respuesta al registrar una venta
+// Respuesta al registrar una venta
 
 data class VentaResponse(
     val codigo: String,
@@ -104,7 +101,7 @@ data class VentaResponse(
 
 // MODELOS DE CONSULTA DE VENTAS
 
-// * Cabecera de venta para historial de compras
+// Cabecera de venta para historial de compras
 
 data class SaleHeader(
     val idVenta: Int,
@@ -116,7 +113,7 @@ data class SaleHeader(
     val numeroTarjeta: String?
 )
 
-// * Detalle de un ítem dentro de una venta
+// Detalle de un ítem dentro de una venta
 
 data class SaleDetail(
     val idDetalleVenta: Int,
@@ -131,7 +128,7 @@ data class SaleDetail(
     val totalPagar: Double
 )
 
-// * Respuesta de lista de cabeceras de venta
+// Respuesta de lista de cabeceras de venta
 
 data class VentasHeaderResponse(
     val codigo: String,
@@ -141,7 +138,7 @@ data class VentasHeaderResponse(
 
 // MODELOS DE VENTA COMPLETA (FACTURACIÓN)
 
-// * Cabecera de venta para facturación
+// Cabecera de venta para facturación
 
 data class CabeceraVenta(
     val idCabeceraVenta: Int,
@@ -157,7 +154,7 @@ data class CabeceraVenta(
     val cliente_direccion: String?
 )
 
-// * Detalle de venta para facturación
+// Detalle de venta para facturación
 
 data class DetalleVenta(
     val idDetalleVenta: Int,
@@ -172,14 +169,14 @@ data class DetalleVenta(
     val totalPagar: Double
 )
 
-// * Venta completa con cabecera y detalle
+// Venta completa con cabecera y detalle
 
 data class VentaCompleta(
     val cabecera: CabeceraVenta,
     val detalle: List<DetalleVenta>
 )
 
-// * Respuesta del detalle completo de una venta
+// Respuesta del detalle completo de una venta
 
 data class SaleDetailResponse(
     val codigo: String,
@@ -189,7 +186,7 @@ data class SaleDetailResponse(
 
 // MODELOS DE ADMINISTRACIÓN
 
-// * Información de usuario para administración
+// Información de usuario para administración
 
 data class UsuarioInfo(
     val idUsuario: Int,
@@ -198,7 +195,7 @@ data class UsuarioInfo(
     val rol: String
 )
 
-// * Modelo completo de cliente
+// Modelo completo de cliente
 
 data class Cliente(
     val idCliente: Int,
@@ -209,7 +206,7 @@ data class Cliente(
     val direccion: String
 )
 
-// * Cliente facturable (lista simplificada)
+// Cliente facturable (lista simplificada)
 
 data class FacturableClient(
     val id: Int,
@@ -217,7 +214,7 @@ data class FacturableClient(
     val identificacion: String
 )
 
-// * Resultado de consulta de cliente
+// Resultado de consulta de cliente
 
 data class ClienteResultado(
     val esAdmin: Boolean,
@@ -225,7 +222,7 @@ data class ClienteResultado(
     val cliente: Cliente? = null
 )
 
-// * Respuesta de consulta de cliente
+// Respuesta de consulta de cliente
 
 data class ClienteResponse(
     val codigo: String,
@@ -233,7 +230,7 @@ data class ClienteResponse(
     val resultado: ClienteResultado?
 )
 
-// * Venta con información de cliente para administrador
+// Venta con información de cliente para administrador
 
 data class VentaAdmin(
     val idVenta: Int,
@@ -270,19 +267,16 @@ data class ClienteListResponse(
     val resultado: List<Cliente>?
 )
 
-/**
- * Request para actualizar usuario
- */
+//Request para actualizar usuario
 data class UsuarioUpdateRequest(
     val nombre: String,
     val apellido: String,
+    val telefono: String,
     val rol: String,
     val estado: Boolean
 )
 
-/**
- * Request para actualizar cliente
- */
+//Request para actualizar cliente
 data class ClienteUpdateRequest(
     val nombre: String,
     val apellido: String,
@@ -291,7 +285,7 @@ data class ClienteUpdateRequest(
     val direccion: String
 )
 
-// * Request para crear nuevo usuario
+// Request para crear nuevo usuario
 
 data class UsuarioCreateRequest(
     val nombre: String,
@@ -315,11 +309,43 @@ data class ClienteCreateRequest(
 )
 
 
-// * Respuesta general de la API genérica para operaciones CRUD
+// Respuesta general de la API genérica para operaciones CRUD
 
 data class BaseResponse(
     val codigo: String,
     val mensaje: String,
     val resultado: Any? = null
+)
+
+// MODELOS PARA ADMIN DASHBOARD
+data class DashboardStats(
+    val totalUsuarios: Int,
+    val totalClientes: Int,
+    val totalVentas: Int,
+    val totalIngresos: Double
+)
+
+data class DashboardStatsResponse(
+    val codigo: String,
+    val mensaje: String,
+    val resultado: DashboardStats?
+)
+
+// Modelo extendido de Usuario para administración
+data class UsuarioAdmin(
+    val idUsuario: Int,
+    val nombre: String,
+    val apellido: String,
+    val usuario: String,
+    val telefono: String,
+    val rol: String,
+    val estado: Int
+)
+
+// Respuesta de lista de usuarios para administración
+data class UsuarioAdminListResponse(
+    val codigo: String,
+    val mensaje: String,
+    val resultado: List<UsuarioAdmin>?
 )
 

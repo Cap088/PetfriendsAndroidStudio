@@ -45,11 +45,17 @@ interface ApiService {
     @GET("clientes")
     fun getClientes(): Call<ClienteListResponse>
 
+    @GET("clientes/buscar")  // ← AGREGAR ESTE MÉTODO
+    fun searchClientes(@Query("q") query: String): Call<ClienteListResponse>
+
     @POST("clientes")
     fun crearCliente(@Body request: ClienteCreateRequest): Call<BaseResponse>
 
     @PUT("clientes/{id}")
-    fun actualizarCliente(@Path("id") id: Int, @Body cliente: ClienteUpdateRequest): Call<BaseResponse>
+    fun actualizarCliente(
+        @Path("id") id: Int,
+        @Body cliente: ClienteUpdateRequest
+    ): Call<BaseResponse>
 
     @DELETE("clientes/{id}")
     fun eliminarCliente(@Path("id") id: Int): Call<BaseResponse>
@@ -57,18 +63,33 @@ interface ApiService {
     // ==================================================
     // USUARIOS (ADMIN)
     // ==================================================
-    @GET("usuarios")
-    fun getUsuarios(): Call<UsuarioListResponse>
+    @GET("usuarios/todos")
+    fun getAllUsuarios(): Call<UsuarioAdminListResponse>
+
+    @GET("usuarios/buscar")
+    fun searchUsuarios(@Query("q") query: String): Call<UsuarioAdminListResponse>
 
     @POST("usuarios")
     fun crearUsuario(@Body request: UsuarioCreateRequest): Call<BaseResponse>
 
     @PUT("usuarios/{id}")
-    fun actualizarUsuario(@Path("id") id: Int, @Body usuario: UsuarioUpdateRequest): Call<BaseResponse>
+    fun actualizarUsuario(
+        @Path("id") id: Int,
+        @Body usuario: UsuarioUpdateRequest
+    ): Call<BaseResponse>
+
+    @PUT("usuarios/estado/{idUsuario}")
+    fun updateUsuarioEstado(
+        @Path("idUsuario") idUsuario: Int,
+        @Body request: Map<String, Int>
+    ): Call<BaseResponse>
 
     @DELETE("usuarios/{id}")
     fun eliminarUsuario(@Path("id") id: Int): Call<BaseResponse>
 
-
-
+    // ==================================================
+    // DASHBOARD ADMIN
+    // ==================================================
+    @GET("dashboard/stats")
+    fun getDashboardStats(): Call<DashboardStatsResponse>
 }
