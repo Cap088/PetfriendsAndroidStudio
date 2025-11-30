@@ -48,9 +48,8 @@ class CheckoutService {
                 codigo = "500",
                 mensaje = "Error de red/servidor: ${e.message}",
                 error = e.message,
-                resultado = TODO()
+                resultado = null  // ✅ CORREGIDO: Cambiar TODO() por null
             )
         }
-
     }
 }

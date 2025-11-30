@@ -11,7 +11,8 @@ import com.camilop.petfriendsapp_kotlin.databinding.ItemUserBinding
 import com.camilop.petfriendsapp_kotlin.models.UsuarioAdmin
 
 class UserAdapter(
-    private val onEditUser: (UsuarioAdmin) -> Unit
+    private val onEditUser: (UsuarioAdmin) -> Unit,
+    private val onDeleteUser: (UsuarioAdmin) -> Unit
 ) : ListAdapter<UsuarioAdmin, UserAdapter.UserViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -30,6 +31,7 @@ class UserAdapter(
         fun bind(user: UsuarioAdmin) {
             binding.tvUserName.text = "${user.nombre} ${user.apellido}"
             binding.tvUserUsername.text = user.usuario
+            binding.tvUserTelefono.text = user.telefono
             binding.tvUserRole.text = user.rol
 
             // Configurar color según el rol
@@ -45,14 +47,21 @@ class UserAdapter(
             // Mostrar estado
             binding.tvUserStatus.text = if (user.estado == 1) "Activo" else "Inactivo"
             binding.tvUserStatus.setTextColor(
-                ContextCompat.getColor(binding.root.context,
-                    if (user.estado == 1) R.color.verde else R.color.red_status)
+                ContextCompat.getColor(
+                    binding.root.context,
+                    if (user.estado == 1) R.color.verde else R.color.red_status
+                )
             )
 
             // Listeners
             binding.btnEditUser.setOnClickListener {
                 onEditUser(user)
             }
+            // Eliminar usuario
+            binding.btnDeleteUser.setOnClickListener {
+                onDeleteUser(user)
+            }
+
 
             // Click en toda la tarjeta
             binding.root.setOnClickListener {

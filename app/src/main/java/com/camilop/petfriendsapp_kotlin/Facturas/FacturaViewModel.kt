@@ -49,6 +49,13 @@ class FacturaViewModel(application: Application) : AndroidViewModel(application)
                             if (apiResponse?.codigo == "200" && apiResponse.resultado != null) {
 
                                 val ventaCompleta = apiResponse.resultado
+
+                                // DEBUG: Verificar los productos que vienen de la API
+                                println("🔍 DEBUG FacturaViewModel - Productos recibidos:")
+                                ventaCompleta.detalle.forEachIndexed { index, detalle ->
+                                    println("   Producto $index: ID=${detalle.idProducto}, Nombre='${detalle.nombreProducto}'")
+                                }
+
                                 _facturaData.postValue(ventaCompleta)
 
                                 val userSession = sessionManager.getUserDetails()

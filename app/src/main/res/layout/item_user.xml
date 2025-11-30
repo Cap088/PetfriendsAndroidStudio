@@ -40,6 +40,16 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvUserTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Telefono Usuario"
+                android:textColor="@color/azul"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/tvUserUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,6 +94,15 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_edit"
                 android:contentDescription="Editar usuario" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteUser"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Eliminar usuario"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/red_status" />
 
         </LinearLayout>
 

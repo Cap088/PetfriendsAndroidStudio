@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camilop.petfriendsapp_kotlin.adapters.VentasAdminAdapter
 import com.camilop.petfriendsapp_kotlin.databinding.FragmentVentasManagementBinding
@@ -17,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
+import com.camilop.petfriendsapp_kotlin.R
 
 class VentasAdminFragment : Fragment() {
 
@@ -61,7 +64,7 @@ class VentasAdminFragment : Fragment() {
         }
 
         // Mostrar fechas disponibles como hint
-        binding.etFilterDate.hint = "YYYY-MM-DD (ej: 2024-01-15)"
+        binding.etFilterDate.hint = ""
 
         // Agregar botón para ver todas las ventas
         val btnVerTodas = android.widget.Button(requireContext()).apply {
@@ -140,9 +143,9 @@ class VentasAdminFragment : Fragment() {
     }
 
     private fun setupVentasList(ventas: List<VentaAdmin>) {
-        println("🔍 DEBUG: === FECHAS RECIBIDAS ===")
+        println("DEBUG: === FECHAS RECIBIDAS ===")
         ventas.forEach { venta ->
-            println("   📅 Venta #${venta.idVenta}: '${venta.fecha}'")
+            println("Venta #${venta.idVenta}: '${venta.fecha}'")
         }
         println("=================================")
 
@@ -156,16 +159,16 @@ class VentasAdminFragment : Fragment() {
     }
 
     private fun filtrarVentasPorFecha(fecha: String) {
-        println("🔄 DEBUG: Filtrando por fecha: '$fecha'")
+        println("DEBUG: Filtrando por fecha: '$fecha'")
 
         val ventasActuales = ventasAdapter.currentList
-        println("📊 DEBUG: Ventas actuales: ${ventasActuales.size}")
+        println("DEBUG: Ventas actuales: ${ventasActuales.size}")
 
         // MOSTRAR FECHAS DISPONIBLES
-        println("📅 DEBUG: === FECHAS DISPONIBLES ===")
+        println("DEBUG: === FECHAS DISPONIBLES ===")
         val fechasUnicas = ventasActuales.map { it.fecha }.distinct().sorted()
         fechasUnicas.forEach { fechaDisponible ->
-            println("   📆 $fechaDisponible")
+            println(" $fechaDisponible")
         }
         println("=================================")
 
@@ -228,14 +231,22 @@ class VentasAdminFragment : Fragment() {
 
     private fun verDetallesVenta(venta: VentaAdmin) {
         // Navegar a detalles de venta
-        Toasty.info(requireContext(), "Ver detalles venta #${venta.idVenta}", Toasty.LENGTH_SHORT).show()
-        // findNavController().navigate(R.id.action_ventasAdmin_to_ventaDetailFragment,
-        //     bundleOf("ventaId" to venta.idVenta))
+        val ventaDetalleFragment = VentaDetalleFragment().apply {
+            arguments = Bundle().apply {
+                putInt("ventaId", venta.idVenta)
+            }
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, ventaDetalleFragment)
+            .addToBackStack("venta_detalle")
+            .commit()
     }
 
     private fun imprimirFactura(venta: VentaAdmin) {
         // Generar factura
-        Toasty.success(requireContext(), "Generando factura #${venta.idVenta}", Toasty.LENGTH_SHORT).show()
+        Toasty.success(requireContext(), "Generando factura #${venta.idVenta}", Toasty.LENGTH_SHORT)
+            .show()
     }
 
     private fun mostrarMensajeVacio(mensaje: String) {

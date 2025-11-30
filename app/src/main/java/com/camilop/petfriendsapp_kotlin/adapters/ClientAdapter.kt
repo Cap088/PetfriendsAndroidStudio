@@ -10,7 +10,9 @@ import com.camilop.petfriendsapp_kotlin.models.Cliente
 
 class ClientAdapter(
     private val onEditClient: (Cliente) -> Unit,
-    private val onViewSales: (Cliente) -> Unit
+    private val onDeleteClient: (Cliente) -> Unit,
+    private val onViewSales: (Cliente) -> Unit,
+
 ) : ListAdapter<Cliente, ClientAdapter.ClientViewHolder>(ClientDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
@@ -37,7 +39,11 @@ class ClientAdapter(
                 onEditClient(client)
             }
 
-            // Click en toda la tarjeta
+            binding.btnDeleteClient.setOnClickListener {
+                onDeleteClient(client)
+            }
+
+            // Click en toda la tarjeta para editar
             binding.root.setOnClickListener {
                 onEditClient(client)
             }

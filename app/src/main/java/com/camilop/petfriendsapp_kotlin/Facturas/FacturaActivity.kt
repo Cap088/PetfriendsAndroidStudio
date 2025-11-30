@@ -292,7 +292,7 @@ class FacturaActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
                 // Si la carga del logo falla, imprimimos el error y continuamos sin él
-                println(" ❌ ERROR CRÍTICO al generar el logo desde drawable: ${e.message}")
+                println(" ERROR CRÍTICO al generar el logo desde drawable: ${e.message}")
                 e.printStackTrace()
                 // Agrega una nota de texto para indicar que el logo falló
                 document.add(Paragraph("[Error al cargar Logo: ${e.message}]").setTextAlignment(TextAlignment.CENTER))
@@ -461,5 +461,7 @@ class FacturaActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+
 
 }

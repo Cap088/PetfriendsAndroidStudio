@@ -27,6 +27,7 @@ data class User(
     val usuario: String,
     val telefono: String,
     val rol: String? = null,
+    val idCliente: Int? = null
 )
 
 // Respuesta general de la API para operaciones de autenticación
@@ -44,11 +45,11 @@ data class APIResponse(
 data class Product(
     val idProducto: Int,
     val nombre: String,
-    val cantidad: Int,
-    val precio: Double,
     val descripcion: String,
-    val porcentajeIva: Int,
+    val precio: Double,
     val categoria: String,
+    val cantidad: Int,
+    val porcentajeIva: Double = 16.0,
     val imagenes: String? = null
 )
 

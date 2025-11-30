@@ -50,6 +50,9 @@ class ClientManagementFragment : Fragment() {
             onEditClient = { client ->
                 showEditClientDialog(client)
             },
+            onDeleteClient = { client ->
+                showDeleteClientConfirmation(client)
+            },
             onViewSales = { client ->
                 showClientSales(client)
             }
@@ -59,6 +62,60 @@ class ClientManagementFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = clientAdapter
         }
+    }
+
+    // Metodo de confirmación para eliminación permanente
+    private fun showDeleteClientConfirmation(client: Cliente) {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar Cliente Permanentemente")
+            .setMessage("¿ESTÁS SEGURO?\n\nSe eliminará permanentemente el cliente:\n${client.nombre} ${client.apellido}\n\n⚠️ Esta acción NO se puede deshacer")
+            .setPositiveButton("ELIMINAR") { dialog, which ->
+                eliminarClientePermanentemente(client)
+            }
+            .setNegativeButton("Cancelar", null)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show()
+    }
+
+    // Metodo para eliminar cliente permanentemente
+    private fun eliminarClientePermanentemente(client: Cliente) {
+        val progressDialog = android.app.ProgressDialog(requireContext()).apply {
+            setMessage("Eliminando cliente permanentemente...")
+            setCancelable(false)
+            show()
+        }
+
+        RetrofitClient.apiService.eliminarCliente(client.idCliente)
+            .enqueue(object : retrofit2.Callback<com.camilop.petfriendsapp_kotlin.models.BaseResponse> {
+                override fun onResponse(
+                    call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.BaseResponse>,
+                    response: retrofit2.Response<com.camilop.petfriendsapp_kotlin.models.BaseResponse>
+                ) {
+                    progressDialog.dismiss()
+
+                    if (response.isSuccessful) {
+                        response.body()?.let { apiResponse ->
+                            if (apiResponse.codigo == "200") {
+                                Toasty.success(requireContext(), "✅ Cliente eliminado permanentemente", Toasty.LENGTH_SHORT).show()
+                                // Recargar la lista
+                                viewModel.loadClients()
+                            } else {
+                                Toasty.error(requireContext(), "Error: ${apiResponse.mensaje}", Toasty.LENGTH_LONG).show()
+                            }
+                        }
+                    } else {
+                        Toasty.error(requireContext(), "Error del servidor: ${response.code()}", Toasty.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.BaseResponse>,
+                    t: Throwable
+                ) {
+                    progressDialog.dismiss()
+                    Toasty.error(requireContext(), "Error de conexión: ${t.message}", Toasty.LENGTH_LONG).show()
+                }
+            })
     }
 
     // Configuración de observadores
@@ -239,7 +296,7 @@ class ClientManagementFragment : Fragment() {
 
     private fun showClientSales(client: Cliente) {
         showMessage("Ver ventas de: ${client.nombre} ${client.apellido}")
-        // Aquí puedes implementar la navegación a las ventas del cliente
+        //implementar la navegación a las ventas del cliente
     }
 
     private fun showMessage(message: String) {

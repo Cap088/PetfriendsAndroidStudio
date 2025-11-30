@@ -83,6 +83,15 @@
                 android:contentDescription="Editar cliente"
                 android:src="@drawable/ic_edit" />
 
+            <ImageButton
+                android:id="@+id/btnDeleteClient"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Eliminar cliente"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/red_status" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -81,10 +81,10 @@ class AdminDashboardFragment : Fragment() {
             navigateToSalesManagement()
         }
 
-        // Reportes
-        binding.cardReportes.setOnClickListener {
-            // Navegar a la pantalla de reportes
-            navigateToReports()
+        // Gestion de productos
+        binding.cardGestionProductos.setOnClickListener {
+            // Navegar a la pantalla de gestion de productos
+            navigateToGestionProductos()
         }
     }
 
@@ -119,8 +119,13 @@ class AdminDashboardFragment : Fragment() {
             .commit()
     }
 
-    private fun navigateToReports() {
+    private fun navigateToGestionProductos() {
 
-        // Para reportes, crearemos ReportsFragment después
+        val gestionProductosFragment = GestionProductosFragment()
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, gestionProductosFragment)
+            .addToBackStack("gestion_productos")
+            .commit()
     }
 }

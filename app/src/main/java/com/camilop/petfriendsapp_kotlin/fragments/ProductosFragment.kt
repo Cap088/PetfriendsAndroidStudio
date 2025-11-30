@@ -51,7 +51,6 @@ class ProductosFragment : Fragment() {
                 if (response.isSuccessful) {
                     val productListResponse = response.body()
 
-                    // Se verifica que el cuerpo exista y que el código de tu API sea "200"
                     if (productListResponse?.codigo == "200") {
 
                         // Se Extrae la lista REAL de productos del campo 'resultado'
@@ -81,7 +80,7 @@ class ProductosFragment : Fragment() {
                 }
             }
 
-            // Se ejecuta si hay un fallo en la conexión de red (timeout, DNS, etc.)
+            // Se ejecuta si hay un fallo en la conexión de red
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
                 // Muestra un mensaje de fallo de conexión
                 Toasty.error(
@@ -96,10 +95,9 @@ class ProductosFragment : Fragment() {
     //Configura el RecyclerView con la lista de productos recibida.
 
     private fun setupRecyclerView(products: List<Product>) {
-        // Configurar el RecyclerView (lista vertical)
+
         binding.rvProducts.layoutManager = LinearLayoutManager(context)
 
-        // Asignar el adaptador con los datos REALES de la API
         val adapter = ProductAdapter(requireContext(), products)
         binding.rvProducts.adapter = adapter
     }

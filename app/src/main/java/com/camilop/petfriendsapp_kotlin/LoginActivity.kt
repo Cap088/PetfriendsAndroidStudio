@@ -87,17 +87,17 @@ class LoginActivity : AppCompatActivity() {
                         // LOGIN EXITOSO
                         Toasty.success(this@LoginActivity, apiResponse.mensaje, Toasty.LENGTH_LONG).show()
 
-                        // 👇 AGREGAR DEBUGGING AQUÍ
-                        println("✅ LOGIN EXITOSO")
-                        println("📦 Datos recibidos: ${apiResponse.resultado}")
-                        println("🎯 Rol recibido: ${apiResponse.resultado?.rol}")
+                        //AGREGAR DEBUGGING AQUÍ
+                        println("LOGIN EXITOSO")
+                        println("Datos recibidos: ${apiResponse.resultado}")
+                        println("Rol recibido: ${apiResponse.resultado?.rol}")
 
                         val user = apiResponse.resultado
                         if (user != null && user is User) {
                             sessionManager.createLoginSession(user)
-                            println("💾 Usuario guardado en SessionManager")
-                            println("👤 Usuario: ${user.usuario}")
-                            println("🎯 Rol guardado: ${user.rol}")
+                            println(" Usuario guardado en SessionManager")
+                            println("Usuario: ${user.usuario}")
+                            println("Rol guardado: ${user.rol}")
                         } else {
                             Log.w("LOGIN", "Login exitoso, pero el servidor no devolvió el objeto User en 'resultado'.")
                         }

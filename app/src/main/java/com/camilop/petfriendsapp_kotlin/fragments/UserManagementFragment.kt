@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camilop.petfriendsapp_kotlin.adapters.UserAdapter
 import com.camilop.petfriendsapp_kotlin.databinding.FragmentUserManagementBinding
 import com.camilop.petfriendsapp_kotlin.models.UsuarioAdmin
-import com.camilop.petfriendsapp_kotlin.models.UsuarioAdminListResponse
 import com.camilop.petfriendsapp_kotlin.models.UsuarioUpdateRequest
 import com.camilop.petfriendsapp_kotlin.network.RetrofitClient
 import com.camilop.petfriendsapp_kotlin.viewmodels.UserManagementViewModel
@@ -26,7 +25,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.camilop.petfriendsapp_kotlin.R
-import com.camilop.petfriendsapp_kotlin.models.User
 
 class UserManagementFragment : Fragment() {
 
@@ -55,6 +53,9 @@ class UserManagementFragment : Fragment() {
         userAdapter = UserAdapter(
             onEditUser = { usuario ->
                 showEditUserDialog(usuario)
+            },
+            onDeleteUser = { usuario ->
+                showDeleteUserConfirmation(usuario)
             }
         )
 
@@ -62,6 +63,60 @@ class UserManagementFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = userAdapter
         }
+    }
+
+    // Metodo de confirmación para eliminación permanente
+    private fun showDeleteUserConfirmation(user: UsuarioAdmin) {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar Usuario Permanentemente")
+            .setMessage("¿ESTÁS SEGURO?\n\nSe eliminará permanentemente el usuario:\n${user.nombre} ${user.apellido}\n\n⚠️ Esta acción NO se puede deshacer")
+            .setPositiveButton("ELIMINAR") { dialog, which ->
+                eliminarUsuarioPermanentemente(user)
+            }
+            .setNegativeButton("Cancelar", null)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show()
+    }
+
+    // Metodo para eliminar usuario permanentemente
+    private fun eliminarUsuarioPermanentemente(user: UsuarioAdmin) {
+        val progressDialog = android.app.ProgressDialog(requireContext()).apply {
+            setMessage("Eliminando usuario permanentemente...")
+            setCancelable(false)
+            show()
+        }
+
+        RetrofitClient.apiService.eliminarUsuario(user.idUsuario)
+            .enqueue(object : retrofit2.Callback<com.camilop.petfriendsapp_kotlin.models.BaseResponse> {
+                override fun onResponse(
+                    call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.BaseResponse>,
+                    response: retrofit2.Response<com.camilop.petfriendsapp_kotlin.models.BaseResponse>
+                ) {
+                    progressDialog.dismiss()
+
+                    if (response.isSuccessful) {
+                        response.body()?.let { apiResponse ->
+                            if (apiResponse.codigo == "200") {
+                                Toasty.success(requireContext(), "✅ Usuario eliminado permanentemente", Toasty.LENGTH_SHORT).show()
+                                // Recargar la lista
+                                viewModel.loadUsers()
+                            } else {
+                                Toasty.error(requireContext(), "Error: ${apiResponse.mensaje}", Toasty.LENGTH_LONG).show()
+                            }
+                        }
+                    } else {
+                        Toasty.error(requireContext(), "Error del servidor: ${response.code()}", Toasty.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<com.camilop.petfriendsapp_kotlin.models.BaseResponse>,
+                    t: Throwable
+                ) {
+                    progressDialog.dismiss()
+                    Toasty.error(requireContext(), "Error de conexión: ${t.message}", Toasty.LENGTH_LONG).show()
+                }
+            })
     }
 
     private fun setupObservers() {
